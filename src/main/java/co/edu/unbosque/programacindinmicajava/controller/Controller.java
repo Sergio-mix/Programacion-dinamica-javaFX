@@ -10,6 +10,6 @@ public class Controller {
 
     @FXML
     public void floydRood(ActionEvent event) throws IOException {
-        Main.setRoot("/co/edu/unbosque/programacindinmicajava/floyd");
+        Main.setRoot(Main.packageS("floyd"));
     }
 }

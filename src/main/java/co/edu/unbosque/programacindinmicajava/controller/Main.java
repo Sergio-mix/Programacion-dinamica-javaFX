@@ -14,12 +14,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/co/edu/unbosque/programacindinmicajava/view"));
+        scene = new Scene(loadFXML(packageS("view")));
         stage.getIcons().add(
                 new Image(
                         String.valueOf(
                                 getClass().getResource(
-                                        "/co/edu/unbosque/programacindinmicajava/icons/a.png")
+                                        packageS("icons/a.png"))
                         )
                 )
         );
@@ -34,8 +34,13 @@ public class Main extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(
+                fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    public static String packageS(String text) {
+        return "/co/edu/unbosque/programacindinmicajava/" + text;
     }
 
     public static void main(String[] args) {
