@@ -1,0 +1,24 @@
+.body {
+    -fx-background-color: #202020;
+}
+
+.pane-1 {
+    -fx-background-color: #2b2b2b;
+    -fx-border-radius: 10, 10, 10, 10;
+    -fx-background-radius: 10, 10, 10, 10;
+    -fx-effect: dropshadow(gaussian, #101010, 15, 0.5, 0.5, 0.5);
+}
+
+.pane-1:hover {
+    -fx-pref-width: 185;
+    -fx-effect: dropshadow(gaussian, #000000, 20, 0.5, 0.5, 0.5);
+}
+
+.button-1 {
+    -fx-border-radius: 10, 10, 10, 10;
+}
+
+.button-1:hover{
+    -fx-pref-width: 85;
+    -fx-pref-height: 28;
+}

@@ -8,6 +8,7 @@ public class ViajeroFuerzaBruta {
     static int min = 99999999;
     static int sum = 0;
     static Scanner in = new Scanner(System.in);
+
     public static void main(String[] args) {
         /**
          * Suponiendo que a es el punto 1, b es el punto 2, c es el punto 3 y d es el punto 4
@@ -30,7 +31,7 @@ public class ViajeroFuerzaBruta {
                 if (j != i) {
                     for (int k = 2; k < a.length; k++) {
                         if (k != i && k != j) {
-                            sum = a[1][i] + a[i][j]  + a[j][k] + a[k][1];
+                            sum = a[1][i] + a[i][j] + a[j][k] + a[k][1];
                             if (min > sum) {
                                 min = sum;
                                 bestWay[1] = 1;
@@ -44,10 +45,10 @@ public class ViajeroFuerzaBruta {
                 }
             }
         }
-        for (int i = 1; i < bestWay.length-1; i++) {
+        for (int i = 1; i < bestWay.length - 1; i++) {
             System.out.print(bestWay[i] + "-->");
         }
-        System.out.println(bestWay[bestWay.length-1]);
+        System.out.println(bestWay[bestWay.length - 1]);
         System.out.println(min);
     }
 }
