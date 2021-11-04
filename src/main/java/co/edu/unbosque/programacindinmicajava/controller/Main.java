@@ -1,11 +1,14 @@
 package co.edu.unbosque.programacindinmicajava.controller;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -15,6 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML(packageS("view")));
+        scene.setFill(Color.TRANSPARENT);
         stage.getIcons().add(
                 new Image(
                         String.valueOf(
@@ -25,8 +29,14 @@ public class Main extends Application {
         );
         stage.setTitle("Algoritmos dinamicos");
         stage.setResizable(false);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     static void setRoot(String fxml) throws IOException {

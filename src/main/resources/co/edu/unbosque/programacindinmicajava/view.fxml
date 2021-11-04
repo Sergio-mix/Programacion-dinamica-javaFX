@@ -11,7 +11,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="550.0" prefWidth="1050.0" styleClass="body" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unbosque.programacindinmicajava.controller.Controller">
    <center>
-      <HBox prefHeight="412.0" prefWidth="1000.0" spacing="30.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="366.0" prefWidth="1050.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="322.0" prefWidth="180.0" spacing="35.0" styleClass="pane-1">
                <children>
@@ -34,7 +34,7 @@
                         <Insets />
                      </VBox.margin>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#floydRood" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #c92e34;" styleClass="button-1" text="Entrar" textFill="#ececec">
+                  <Button mnemonicParsing="false" onAction="#floydRood" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #fcba03;" styleClass="button-1" text="Entrar" textFill="#ececec">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -164,24 +164,35 @@
             </VBox>
          </children>
          <padding>
-            <Insets bottom="100.0" left="50.0" right="50.0" top="70.0" />
+            <Insets bottom="40.0" left="50.0" right="50.0" top="70.0" />
          </padding>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
       </HBox>
    </center>
-   <top>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Algoritmos dinamicos" BorderPane.alignment="CENTER">
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#exit" prefHeight="19.0" prefWidth="62.0" style="-fx-background-color: #c92e34; -fx-effect: dropshadow(gaussian, #101010, 15, 0.5, 0.5, 0.5);" styleClass="button-2" text="Salir" textFill="#ececec" BorderPane.alignment="TOP_RIGHT">
          <BorderPane.margin>
-            <Insets top="60.0" />
+            <Insets bottom="30.0" right="50.0" />
          </BorderPane.margin>
-         <font>
-            <Font name="Arial" size="24.0" />
-         </font>
-         <effect>
-            <Glow />
-         </effect>
-      </Text>
+      </Button>
+   </bottom>
+   <top>
+      <HBox fx:id="barmenu" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Algoritmos dinamicos">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <HBox.margin>
+                  <Insets left="410.0" top="65.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
    </top>
 </BorderPane>
