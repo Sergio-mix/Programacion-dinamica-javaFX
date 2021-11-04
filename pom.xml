@@ -65,7 +65,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                co.edu.unbosque.programacindinmicajava/co.edu.unbosque.programacindinmicajava.HelloApplication
+                                co.edu.unbosque.programacindinmicajava.controller.Main
                             </mainClass>
                         </configuration>
                     </execution>

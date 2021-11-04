@@ -4,6 +4,8 @@ module co.edu.unbosque.programacindinmicajava {
 
     requires org.controlsfx.controls;
 
-    opens co.edu.unbosque.programacindinmicajava to javafx.fxml;
-    exports co.edu.unbosque.programacindinmicajava;
+    exports co.edu.unbosque.programacindinmicajava.controller;
+    exports co.edu.unbosque.programacindinmicajava.model;
+    opens co.edu.unbosque.programacindinmicajava.controller to javafx.fxml;
+    opens co.edu.unbosque.programacindinmicajava.model to javafx.fxml;
 }
