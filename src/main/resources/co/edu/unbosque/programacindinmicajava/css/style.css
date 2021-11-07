@@ -1,6 +1,6 @@
 .body {
     -fx-background-color: #202020;
-    -fx-border-radius: 12,12,12,12;
+    -fx-border-radius: 12, 12, 12, 12;
     -fx-background-radius: 12 12 12 12;
 }
 
@@ -20,7 +20,7 @@
     -fx-border-radius: 10, 10, 10, 10;
 }
 
-.button-1:hover{
+.button-1:hover {
     -fx-pref-width: 85;
     -fx-pref-height: 28;
 }
@@ -32,4 +32,18 @@
 .button-2:hover {
     -fx-pref-width: 65;
     -fx-pref-height: 21;
+}
+
+.text_v1 {
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #ffffff;
+    -fx-border-style: none;
+}
+
+.separator .line {
+    -fx-background-color: #393939;
+    -fx-pref-height: 1;
+    -fx-border-color: null ;
 }
