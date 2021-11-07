@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML(packageS("view")));
+        scene = new Scene(loadFXML("view"));
         scene.setFill(Color.TRANSPARENT);
         stage.getIcons().add(
                 new Image(
@@ -45,12 +45,16 @@ public class Main extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(
-                fxml + ".fxml"));
+                packageS(fxml) + ".fxml"));
         return fxmlLoader.load();
     }
 
     public static String packageS(String text) {
         return "/co/edu/unbosque/programacindinmicajava/" + text;
+    }
+
+    public static void exit() {
+        System.exit(0);
     }
 
     public static void main(String[] args) {

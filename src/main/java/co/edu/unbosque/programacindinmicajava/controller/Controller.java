@@ -23,11 +23,11 @@ public class Controller implements Initializable, DraggedScene {
 
     @FXML
     public void floydRood(ActionEvent event) throws IOException {
-        Main.setRoot(Main.packageS("floyd"));
+        Main.setRoot("floyd");
     }
 
     @FXML
     public void exit(ActionEvent event) {
-        System.exit(0);
+        Main.exit();
     }
 }
