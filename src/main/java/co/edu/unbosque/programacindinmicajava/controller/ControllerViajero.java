@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -16,8 +17,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ControllerViajero implements Initializable, DraggedScene {
 
@@ -59,6 +59,11 @@ public class ControllerViajero implements Initializable, DraggedScene {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.onDraggedScene(barmenu);
+        txtA.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
+        txtB.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
+        txtC.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
+        txtNumero.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
+        txtTamanio.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
     }
 
     @FXML
@@ -92,6 +97,7 @@ public class ControllerViajero implements Initializable, DraggedScene {
         }
     }
 
+    @FXML
     public void addArray() {
         try {
             int n = Integer.parseInt(txtTamanio.getText());
@@ -108,7 +114,7 @@ public class ControllerViajero implements Initializable, DraggedScene {
                     txtB.setText("");
                     txtC.setText("");
 
-                    array = Viajero.initialize(array);
+                    Map<String, Object> map = Viajero.initialize(array);
 
                     if (array == null) {
                         aux = 1;
@@ -120,26 +126,31 @@ public class ControllerViajero implements Initializable, DraggedScene {
                     String[][] arrayAux = new String[n + 1][n + 1];
 
                     try {
-                        for (int i = 0; i < array.length; i++) {
-                            for (int j = 0; j < array.length; j++) {
+                        for (int i = 0; i < n; i++) {
+                            for (int j = 0; j < n; j++) {
                                 if (j == 0) {
                                     arrayAux[i][j] = "";
                                 }
+
                                 if (i == 0) {
                                     arrayAux[i][j] = "";
                                 }
-                                arrayAux[i + 1][j + 1] = "" + (array[i][j]);
+                                arrayAux[i + 1][j + 1] = String.valueOf(array[i][j]);
                             }
                         }
+
+                        arrayAux[0][n] = "";
+                        arrayAux[n][0] = "";
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
 
                     GridPane gridPane = ObjectView.gridPane();
 
-                    for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < n; j++) {
+                    for (int i = 0; i < n + 1; i++) {
+                        for (int j = 0; j < n + 1; j++) {
                             Text text = null;
+
                             if (arrayAux[i][j].equals("10000.0")) {
                                 text = ObjectView.text("∞", 13);
                             } else {
@@ -161,7 +172,10 @@ public class ControllerViajero implements Initializable, DraggedScene {
                     HBox hBox = ObjectView.hBox_v1();
                     hBox.getChildren().add(ObjectView.text("D(" + (aux - 2) + ") =", 18));
                     hBox.getChildren().add(gridPane);
-                    hBox.getChildren().add(ObjectView.text("#3bd464", "Valor costo:" + Viajero.getTourCost(), 16));
+                    VBox vBox = ObjectView.vbox_v1();
+                    vBox.getChildren().add(ObjectView.text("#3bd464", "Costo: " + map.get("numero"), 18));
+                    vBox.getChildren().add(ObjectView.text("#FFFFFF", map.get("lista"), 18));
+                    hBox.getChildren().add(vBox);
                     add(hBox);
 
                     if (aux + 1 > m + 1) {
@@ -191,7 +205,6 @@ public class ControllerViajero implements Initializable, DraggedScene {
             txtC.setText("");
             aux = 1;
             textAUX.setText("");
-            System.out.println(ex.getMessage());
             Methods.mostrarAlertError("Error en el proceso");
         }
     }

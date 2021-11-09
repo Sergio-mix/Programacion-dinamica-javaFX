@@ -1,20 +1,14 @@
 package co.edu.unbosque.programacindinmicajava.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Viajero {
 
-    private static int N, start;
-    private static double[][] distance;
-    private static List<Integer> tour = new ArrayList<>();
-    private static double minTourCost = Double.POSITIVE_INFINITY;
-    private static boolean ranSolver = false;
-
-    public Viajero() {
-
-    }
+    private final int N, start;
+    private final double[][] distance;
+    private List<Integer> tour = new ArrayList<>();
+    private double minTourCost = Double.POSITIVE_INFINITY;
+    private boolean ranSolver = false;
 
     public Viajero(double[][] distance) {
         this(0, distance);
@@ -31,30 +25,29 @@ public class Viajero {
                     "Matrix too large! A matrix that size for the DP TSP problem with a time complexity of"
                             + "O(n^2*2^n) requires way too much computation for any modern home computer to handle");
 
-        Viajero.start = start;
-        Viajero.distance = distance;
+        this.start = start;
+        this.distance = distance;
     }
 
     // Returns the optimal tour for the traveling salesman problem.
-    public double[][] getTour() {
-        if (!ranSolver)
-            return solve();
-        return null;
+    public List<Integer> getTour() {
+        if (!ranSolver) solve();
+        return tour;
     }
 
     // Returns the minimal tour cost.
-    public static double getTourCost() {
+    public double getTourCost() {
         if (!ranSolver) solve();
         return minTourCost;
     }
 
     // Solves the traveling salesman problem and caches solution.
-    public static double[][] solve() {
+    public void solve() {
 
-        if (ranSolver) return new double[0][];
+        if (ranSolver) return;
 
         final int END_STATE = (1 << N) - 1;
-        double[][] memo = new double[N][1 << N];
+        Double[][] memo = new Double[N][1 << N];
 
         // Add all outgoing edges from the starting node to memo table.
         for (int end = 0; end < N; end++) {
@@ -117,8 +110,6 @@ public class Viajero {
         Collections.reverse(tour);
 
         ranSolver = true;
-
-        return memo;
     }
 
     private static boolean notIn(int elem, int subset) {
@@ -157,13 +148,18 @@ public class Viajero {
             }
         }
     }
-
-    public static double[][] initialize(double[][] distanceMatrix) {
+    public static Map<String, Object> initialize(double[][] distanceMatrix) {
         try {
             int startNode = 0;
             Viajero solver = new Viajero(startNode, distanceMatrix);
-            return solver.getTour();
+
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("numero", solver.getTourCost());
+            map.put("lista", solver.getTour());
+
+            return map;
         } catch (Exception ex) {
+            System.out.println(ex);
             return null;
         }
     }
