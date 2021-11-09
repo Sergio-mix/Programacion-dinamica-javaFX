@@ -35,11 +35,11 @@ public class Methods {
      * @param text texto de la alerta
      */
     @FXML
-    public static void mostrarAlertError(String text) {
+    public static void mostrarAlertError(Object text) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Error");
-        alert.setContentText(text);
+        alert.setContentText(String.valueOf(text));
         alert.showAndWait();
     }
 
@@ -49,11 +49,11 @@ public class Methods {
      * @param text de la alerta
      */
     @FXML
-    public static void mostrarAlertInfo(String text) {
+    public static void mostrarAlertInfo(Object text) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Información");
-        alert.setContentText(text);
+        alert.setContentText(String.valueOf(text));
         alert.showAndWait();
     }
 
@@ -63,11 +63,11 @@ public class Methods {
      * @param text texto de la alerta
      */
     @FXML
-    public static void mostrarAlertWarning(String text) {
+    public static void mostrarAlertWarning(Object text) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
         alert.setTitle("Advertencia");
-        alert.setContentText(text);
+        alert.setContentText(String.valueOf(text));
         alert.showAndWait();
     }
 }

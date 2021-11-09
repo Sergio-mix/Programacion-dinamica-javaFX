@@ -1,14 +1,13 @@
 package co.edu.unbosque.programacindinmicajava.controller;
 
 import co.edu.unbosque.programacindinmicajava.components.ObjectView;
-import co.edu.unbosque.programacindinmicajava.model.AlgoritmoFloyd;
+import co.edu.unbosque.programacindinmicajava.model.Viajero;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,11 +16,17 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class ControllerFloyd implements Initializable, DraggedScene {
+public class ControllerViajero implements Initializable, DraggedScene {
+
     @FXML
     private Pane barmenu;
+
+
+    @FXML
+    private Button buttonInt;
 
     @FXML
     private VBox container;
@@ -30,7 +35,7 @@ public class ControllerFloyd implements Initializable, DraggedScene {
     private HBox panelABC;
 
     @FXML
-    private Button buttonInt;
+    private Text textAUX;
 
     @FXML
     private TextField txtA;
@@ -47,26 +52,13 @@ public class ControllerFloyd implements Initializable, DraggedScene {
     @FXML
     private TextField txtTamanio;
 
-    @FXML
-    private Text textAUX;
-
-    private int[][] array;
-
     private int aux = 1;
+
+    private double[][] array;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.onDraggedScene(barmenu);
-        txtA.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
-        txtB.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
-        txtC.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
-        txtNumero.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
-        txtTamanio.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
-    }
-
-    @FXML
-    public void exit(ActionEvent event) {
-        Main.exit();
     }
 
     @FXML
@@ -75,11 +67,16 @@ public class ControllerFloyd implements Initializable, DraggedScene {
     }
 
     @FXML
+    public void exit(ActionEvent event) {
+        Main.exit();
+    }
+
+    @FXML
     private void panelDisable() {
         if (!txtTamanio.getText().equals("")
                 && !txtNumero.getText().equals("")) {
 
-            array = floyd();
+            array = viajero();
 
             if (array != null) {
                 panelABC.setDisable(false);
@@ -96,6 +93,9 @@ public class ControllerFloyd implements Initializable, DraggedScene {
     }
 
     public void addArray() {
+        for (double[] doble : array) {
+            System.out.println(Arrays.toString(doble));
+        }
         try {
             int n = Integer.parseInt(txtTamanio.getText());
             int m = Integer.parseInt(txtNumero.getText());
@@ -111,7 +111,8 @@ public class ControllerFloyd implements Initializable, DraggedScene {
                     txtB.setText("");
                     txtC.setText("");
 
-                    array = AlgoritmoFloyd.floyd(n, array);
+                    Viajero viajero = new Viajero();
+                    array = viajero.initialize(array);
 
                     if (array == null) {
                         aux = 1;
@@ -120,15 +121,33 @@ public class ControllerFloyd implements Initializable, DraggedScene {
                         return;
                     }
 
+                    String[][] arrayAux = new String[n + 1][n + 1];
+
+                    try {
+                        for (int i = 0; i < array.length; i++) {
+                            for (int j = 0; j < array.length; j++) {
+                                if (j == 0) {
+                                    arrayAux[i][j] = "";
+                                }
+                                if (i == 0) {
+                                    arrayAux[i][j] = "";
+                                }
+                                arrayAux[i + 1][j + 1] = "" + (array[i][j]);
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
                     GridPane gridPane = ObjectView.gridPane();
 
-                    for (int i = 1; i <= n; i++) {
-                        for (int j = 1; j <= n; j++) {
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
                             Text text = null;
-                            if (array[i][j] == 99999999) {
+                            if (arrayAux[i][j].equals("10000.0")) {
                                 text = ObjectView.text("∞", 13);
                             } else {
-                                text = ObjectView.text(array[i][j], 13);
+                                text = ObjectView.text(arrayAux[i][j], 13);
                             }
 
                             char chaR1 = (char) ('A' + (i - 1));
@@ -173,28 +192,29 @@ public class ControllerFloyd implements Initializable, DraggedScene {
             txtA.setText("");
             txtB.setText("");
             txtC.setText("");
-            textAUX.setText("");
             aux = 1;
+            textAUX.setText("");
             Methods.mostrarAlertError("Error en el proceso");
+            System.out.println("2");
+
         }
     }
 
-    @FXML
-    private int[][] floyd() {
-        try {
-            container.getChildren().clear();
-            aux = 1;
-            int n = Integer.parseInt(txtTamanio.getText());
-            int m = Integer.parseInt(txtNumero.getText());
-            int[][] e = new int[n * n][n * n];
 
-            return AlgoritmoFloyd.initial(m, n, e);
+    private double[][] viajero() {
+        container.getChildren().clear();
+        try {
+            int n = Integer.parseInt(txtTamanio.getText());
+
+            double[][] distanceMatrix = new double[n][n];
+            for (double[] row : distanceMatrix) java.util.Arrays.fill(row, 10000);
+            return distanceMatrix;
         } catch (Exception ex) {
             return null;
         }
     }
 
-    private void add(Object Object) {
-        container.getChildren().add((Node) Object);
+    private void add(Object object) {
+        container.getChildren().add((Node) object);
     }
 }
