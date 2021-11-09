@@ -27,6 +27,11 @@ public class Controller implements Initializable, DraggedScene {
     }
 
     @FXML
+    public void viajero(ActionEvent event) throws IOException {
+        Main.setRoot("viajero");
+    }
+
+    @FXML
     public void exit(ActionEvent event) {
         Main.exit();
     }

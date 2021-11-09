@@ -1,50 +1,45 @@
 package co.edu.unbosque.programacindinmicajava.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 public class Viajero {
-    private final int N;
-    private final int START_NODE;
-    private final int FINISHED_STATE;
 
+    private int N, start;
     private double[][] distance;
-    private double minTourCost = Double.POSITIVE_INFINITY;
-
     private List<Integer> tour = new ArrayList<>();
+    private double minTourCost = Double.POSITIVE_INFINITY;
     private boolean ranSolver = false;
+
+    public Viajero() {
+
+    }
 
     public Viajero(double[][] distance) {
         this(0, distance);
     }
 
-    public Viajero(int startNode, double[][] distance) {
-
-        this.distance = distance;
+    public Viajero(int start, double[][] distance) {
         N = distance.length;
-        START_NODE = startNode;
 
-        // Validate inputs.
-        if (N <= 2) throw new IllegalStateException("TSP on 0, 1 or 2 nodes doesn't make sense.");
-        if (N != distance[0].length)
-            throw new IllegalArgumentException("Matrix must be square (N x N)");
-        if (START_NODE < 0 || START_NODE >= N)
-            throw new IllegalArgumentException("Starting node must be: 0 <= startNode < N");
+        if (N <= 2) throw new IllegalStateException("N <= 2 not yet supported.");
+        if (N != distance[0].length) throw new IllegalStateException("Matrix must be square (n x n)");
+        if (start < 0 || start >= N) throw new IllegalArgumentException("Invalid start node.");
         if (N > 32)
             throw new IllegalArgumentException(
                     "Matrix too large! A matrix that size for the DP TSP problem with a time complexity of"
                             + "O(n^2*2^n) requires way too much computation for any modern home computer to handle");
 
-        // The finished state is when the finished state mask has all bits are set to
-        // one (meaning all the nodes have been visited).
-        FINISHED_STATE = (1 << N) - 1;
+        this.start = start;
+        this.distance = distance;
     }
 
     // Returns the optimal tour for the traveling salesman problem.
-    public List<Integer> getTour() {
-        if (!ranSolver) solve();
-        return tour;
+    public double[][] getTour() {
+        if (!ranSolver)
+            return solve();
+        return null;
     }
 
     // Returns the minimal tour cost.
@@ -53,76 +48,124 @@ public class Viajero {
         return minTourCost;
     }
 
-    public void solve() {
+    // Solves the traveling salesman problem and caches solution.
+    public double[][] solve() {
 
-        // Run the solver
-        int state = 1 << START_NODE;
-        Double[][] memo = new Double[N][1 << N];
-        Integer[][] prev = new Integer[N][1 << N];
-        minTourCost = tsp(START_NODE, state, memo, prev);
+        if (ranSolver) return new double[0][];
 
-        // Regenerate path
-        int index = START_NODE;
-        while (true) {
-            tour.add(index);
-            Integer nextIndex = prev[index][state];
-            if (nextIndex == null) break;
-            int nextState = state | (1 << nextIndex);
-            state = nextState;
-            index = nextIndex;
+        final int END_STATE = (1 << N) - 1;
+        double[][] memo = new double[N][1 << N];
+
+        // Add all outgoing edges from the starting node to memo table.
+        for (int end = 0; end < N; end++) {
+            if (end == start) continue;
+            memo[end][(1 << start) | (1 << end)] = distance[start][end];
         }
-        tour.add(START_NODE);
-        ranSolver = true;
-    }
 
-    private double tsp(int i, int state, Double[][] memo, Integer[][] prev) {
-
-        // Done this tour. Return cost of going back to start node.
-        if (state == FINISHED_STATE) return distance[i][START_NODE];
-
-        // Return cached answer if already computed.
-        if (memo[i][state] != null) return memo[i][state];
-
-        double minCost = Double.POSITIVE_INFINITY;
-        int index = -1;
-        for (int next = 0; next < N; next++) {
-
-            // Skip if the next node has already been visited.
-            if ((state & (1 << next)) != 0) continue;
-
-            int nextState = state | (1 << next);
-            double newCost = distance[i][next] + tsp(next, nextState, memo, prev);
-            if (newCost < minCost) {
-                minCost = newCost;
-                index = next;
+        for (int r = 3; r <= N; r++) {
+            for (int subset : combinations(r, N)) {
+                if (notIn(start, subset)) continue;
+                for (int next = 0; next < N; next++) {
+                    if (next == start || notIn(next, subset)) continue;
+                    int subsetWithoutNext = subset ^ (1 << next);
+                    double minDist = Double.POSITIVE_INFINITY;
+                    for (int end = 0; end < N; end++) {
+                        if (end == start || end == next || notIn(end, subset)) continue;
+                        double newDistance = memo[end][subsetWithoutNext] + distance[end][next];
+                        if (newDistance < minDist) {
+                            minDist = newDistance;
+                        }
+                    }
+                    memo[next][subset] = minDist;
+                }
             }
         }
 
-        prev[i][state] = index;
-        return memo[i][state] = minCost;
+        // Connect tour back to starting node and minimize cost.
+        for (int i = 0; i < N; i++) {
+            if (i == start) continue;
+            double tourCost = memo[i][END_STATE] + distance[i][start];
+            if (tourCost < minTourCost) {
+                minTourCost = tourCost;
+            }
+        }
+
+        int lastIndex = start;
+        int state = END_STATE;
+        tour.add(start);
+
+        // Reconstruct TSP path from memo table.
+        for (int i = 1; i < N; i++) {
+
+            int bestIndex = -1;
+            double bestDist = Double.POSITIVE_INFINITY;
+            for (int j = 0; j < N; j++) {
+                if (j == start || notIn(j, state)) continue;
+                double newDist = memo[j][state] + distance[j][lastIndex];
+                if (newDist < bestDist) {
+                    bestIndex = j;
+                    bestDist = newDist;
+                }
+            }
+
+            tour.add(bestIndex);
+            state = state ^ (1 << bestIndex);
+            lastIndex = bestIndex;
+        }
+
+        tour.add(start);
+        Collections.reverse(tour);
+
+        ranSolver = true;
+
+        return memo;
     }
 
-    // Example usage:
-    public static void main(String[] args) {
+    private static boolean notIn(int elem, int subset) {
+        return ((1 << elem) & subset) == 0;
+    }
 
-        // Create adjacency matrix
-        int n = 6;
-        double[][] distanceMatrix = new double[n][n];
-        for (double[] row : distanceMatrix) java.util.Arrays.fill(row, 10000);
-        distanceMatrix[1][4] = distanceMatrix[4][1] = 2;
-        distanceMatrix[4][2] = distanceMatrix[2][4] = 4;
-        distanceMatrix[2][3] = distanceMatrix[3][2] = 6;
-        distanceMatrix[3][0] = distanceMatrix[0][3] = 8;
-        distanceMatrix[0][5] = distanceMatrix[5][0] = 10;
-        distanceMatrix[5][1] = distanceMatrix[1][5] = 12;
+    // This method generates all bit sets of size n where r bits
+    // are set to one. The result is returned as a list of integer masks.
+    public static List<Integer> combinations(int r, int n) {
+        List<Integer> subsets = new ArrayList<>();
+        combinations(0, 0, r, n, subsets);
+        return subsets;
+    }
 
-        // Run the solver
-        Viajero solver = new Viajero(distanceMatrix);
+    // To find all the combinations of size r we need to recurse until we have
+    // selected r elements (aka r = 0), otherwise if r != 0 then we still need to select
+    // an element which is found after the position of our last selected element
+    private static void combinations(int set, int at, int r, int n, List<Integer> subsets) {
 
-        // Prints: [0, 3, 2, 4, 1, 5, 0]
-        System.out.println("Tour: " + solver.getTour());
+        // Return early if there are more elements left to select than what is available.
+        int elementsLeftToPick = n - at;
+        if (elementsLeftToPick < r) return;
 
-        // Print: 42.0
-        System.out.println("Tour cost: " + solver.getTourCost());
+        // We selected 'r' elements so we found a valid subset!
+        if (r == 0) {
+            subsets.add(set);
+        } else {
+            for (int i = at; i < n; i++) {
+                // Try including this element
+                set ^= (1 << i);
+
+                combinations(set, i + 1, r - 1, n, subsets);
+
+                // Backtrack and try the instance where we did not include this element
+                set ^= (1 << i);
+            }
+        }
+    }
+
+    public double[][] initialize(double[][] distanceMatrix) {
+        try {
+            int startNode = 0;
+            Viajero solver = new Viajero(startNode, distanceMatrix);
+            solver.getTour();
+            return distanceMatrix;
+        } catch (Exception ex) {
+            return null;
+        }
     }
 }
