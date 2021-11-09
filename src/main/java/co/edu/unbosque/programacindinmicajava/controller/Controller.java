@@ -34,6 +34,11 @@ public class Controller implements Initializable, DraggedScene {
     public void asignacionRood(ActionEvent actionEvent) throws IOException {
         Main.setRoot("AsignacionTareas");
     }
+
+    @FXML
+    public void binomiales(ActionEvent actionEvent) throws IOException {
+        Main.setRoot("Binomiales");
+    }
     @FXML
     public void exit(ActionEvent event) {
         Main.exit();

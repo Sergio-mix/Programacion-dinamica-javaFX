@@ -41,13 +41,13 @@ public class Binomial {
     }
 
 
-    static class BinomialCoefficientsTest {
-        public static void main(String[] args) {
-            int n = 5;
-            int m = 2;
 
-            System.out.printf("N :%d, M:%d, Binomial Coefficient: %d\n", n, m, getBinomialCoefficient(n, m));
-        }
+    public static int imprimirSolucion(int n, int m) {
+
+        System.out.printf("N :%d, M:%d, Binomial Coefficient: %d\n", n, m, getBinomialCoefficient(n, m));
+
+        return 0;
     }
+
 
 }
