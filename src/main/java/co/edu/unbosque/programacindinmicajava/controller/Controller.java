@@ -30,9 +30,13 @@ public class Controller implements Initializable, DraggedScene {
     public void viajero(ActionEvent event) throws IOException {
         Main.setRoot("viajero");
     }
-
+    @FXML
+    public void asignacionRood(ActionEvent actionEvent) throws IOException {
+        Main.setRoot("AsignacionTareas");
+    }
     @FXML
     public void exit(ActionEvent event) {
         Main.exit();
     }
+
 }
