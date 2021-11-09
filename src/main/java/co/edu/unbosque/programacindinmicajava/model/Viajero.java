@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Viajero {
 
-    private int N, start;
-    private double[][] distance;
-    private List<Integer> tour = new ArrayList<>();
-    private double minTourCost = Double.POSITIVE_INFINITY;
-    private boolean ranSolver = false;
+    private static int N, start;
+    private static double[][] distance;
+    private static List<Integer> tour = new ArrayList<>();
+    private static double minTourCost = Double.POSITIVE_INFINITY;
+    private static boolean ranSolver = false;
 
     public Viajero() {
 
@@ -31,8 +31,8 @@ public class Viajero {
                     "Matrix too large! A matrix that size for the DP TSP problem with a time complexity of"
                             + "O(n^2*2^n) requires way too much computation for any modern home computer to handle");
 
-        this.start = start;
-        this.distance = distance;
+        Viajero.start = start;
+        Viajero.distance = distance;
     }
 
     // Returns the optimal tour for the traveling salesman problem.
@@ -43,13 +43,13 @@ public class Viajero {
     }
 
     // Returns the minimal tour cost.
-    public double getTourCost() {
+    public static double getTourCost() {
         if (!ranSolver) solve();
         return minTourCost;
     }
 
     // Solves the traveling salesman problem and caches solution.
-    public double[][] solve() {
+    public static double[][] solve() {
 
         if (ranSolver) return new double[0][];
 
@@ -158,12 +158,11 @@ public class Viajero {
         }
     }
 
-    public double[][] initialize(double[][] distanceMatrix) {
+    public static double[][] initialize(double[][] distanceMatrix) {
         try {
             int startNode = 0;
             Viajero solver = new Viajero(startNode, distanceMatrix);
-            solver.getTour();
-            return distanceMatrix;
+            return solver.getTour();
         } catch (Exception ex) {
             return null;
         }

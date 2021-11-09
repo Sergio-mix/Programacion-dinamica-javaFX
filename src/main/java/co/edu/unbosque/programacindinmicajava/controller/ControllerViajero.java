@@ -93,9 +93,6 @@ public class ControllerViajero implements Initializable, DraggedScene {
     }
 
     public void addArray() {
-        for (double[] doble : array) {
-            System.out.println(Arrays.toString(doble));
-        }
         try {
             int n = Integer.parseInt(txtTamanio.getText());
             int m = Integer.parseInt(txtNumero.getText());
@@ -111,8 +108,7 @@ public class ControllerViajero implements Initializable, DraggedScene {
                     txtB.setText("");
                     txtC.setText("");
 
-                    Viajero viajero = new Viajero();
-                    array = viajero.initialize(array);
+                    array = Viajero.initialize(array);
 
                     if (array == null) {
                         aux = 1;
@@ -165,6 +161,7 @@ public class ControllerViajero implements Initializable, DraggedScene {
                     HBox hBox = ObjectView.hBox_v1();
                     hBox.getChildren().add(ObjectView.text("D(" + (aux - 2) + ") =", 18));
                     hBox.getChildren().add(gridPane);
+                    hBox.getChildren().add(ObjectView.text("#3bd464", "Valor costo:" + Viajero.getTourCost(), 16));
                     add(hBox);
 
                     if (aux + 1 > m + 1) {
@@ -194,15 +191,15 @@ public class ControllerViajero implements Initializable, DraggedScene {
             txtC.setText("");
             aux = 1;
             textAUX.setText("");
+            System.out.println(ex.getMessage());
             Methods.mostrarAlertError("Error en el proceso");
-            System.out.println("2");
-
         }
     }
 
 
     private double[][] viajero() {
         container.getChildren().clear();
+        aux = 1;
         try {
             int n = Integer.parseInt(txtTamanio.getText());
 
