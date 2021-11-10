@@ -27,7 +27,7 @@ public class ObjectView {
     public static Text text(Object t, int size) {
         Text text = new Text();
         text.setText(String.valueOf(t));//add
-        text.setEffect( new Glow(0.3));
+        text.setEffect(new Glow(0.3));
         text.setFill(Color.web("#FFFFFF"));//Color
         text.setStyle(
                 " -fx-font-size: " + size + "px;" + //Tamanio letra
@@ -49,7 +49,7 @@ public class ObjectView {
     public static Text text(String color, Object t, int size) {
         Text text = new Text();
         text.setText(String.valueOf(t));//add
-        text.setEffect( new Glow(0.3));
+        text.setEffect(new Glow(0.3));
         text.setFill(Color.web(color));//color
         text.setStyle(
                 " -fx-font-size: " + size + ";" +//Tamanio letra
@@ -97,6 +97,15 @@ public class ObjectView {
         );
 
         return hBox;
+    }
+
+
+    @FXML
+    public static VBox vbox_v1() {
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);//Centrar
+        vbox.setSpacing(15);//Espacio
+        return vbox;
     }
 
 

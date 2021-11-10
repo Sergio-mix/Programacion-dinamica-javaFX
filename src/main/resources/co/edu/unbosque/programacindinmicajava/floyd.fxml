@@ -67,7 +67,7 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="115.0">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño Array">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño Matriz">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

@@ -149,7 +149,7 @@
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #787576;" styleClass="button-1" text="Entrar" textFill="#ececec">
+                  <Button mnemonicParsing="false" onAction="#binomiales" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #787576;" styleClass="button-1" text="Entrar" textFill="#ececec">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
