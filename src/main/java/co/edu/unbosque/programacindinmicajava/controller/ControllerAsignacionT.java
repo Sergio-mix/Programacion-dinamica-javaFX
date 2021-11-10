@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 public class ControllerAsignacionT implements Initializable, DraggedScene {
     @FXML
@@ -80,22 +81,21 @@ public class ControllerAsignacionT implements Initializable, DraggedScene {
         int m = Integer.parseInt(txtNumero.getText());
         if (!txtTamanio.getText().equals("")
                 && !txtNumero.getText().equals("")) {
+            array=AsignacionT();
+            System.out.println(Arrays.toString(array));
+            GridPane gridPane = ObjectView.gridPane();
+            HBox hBox = ObjectView.hBox_v1();
+            for(int i = 0; i<array.length;i++){
+
+                hBox.getChildren().add(ObjectView.text("Tarea "+(i+1)+"Realizada por: "+array[i], 18));
 
 
-
-            if (array != null) {
-                panelABC.setDisable(false);
-                txtTamanio.setDisable(true);
-                txtNumero.setDisable(true);
-                buttonInt.setDisable(true);
-                buttonAleatory.setDisable(false);
-            } else {
-                Methods.mostrarAlertError("Error en el proceso");
             }
+            add(hBox);
+
+
         } else {
-            panelABC.setDisable(true);
-            buttonInt.setDisable(false);
-            buttonAleatory.setDisable(true);
+
         }
     }
 
