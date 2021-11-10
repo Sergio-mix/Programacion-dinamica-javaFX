@@ -77,26 +77,32 @@ public class ControllerAsignacionT implements Initializable, DraggedScene {
 
     @FXML
     private void execution() {
-        int n = Integer.parseInt(txtTamanio.getText());
-        int m = Integer.parseInt(txtNumero.getText());
-        if (!txtTamanio.getText().equals("")
-                && !txtNumero.getText().equals("")) {
-            array=AsignacionT();
-            System.out.println(Arrays.toString(array));
-            GridPane gridPane = ObjectView.gridPane();
-            HBox hBox = ObjectView.hBox_v1();
-            for(int i = 0; i<array.length;i++){
+        try {
+            int n = Integer.parseInt(txtTamanio.getText());
+            int m = Integer.parseInt(txtNumero.getText());
+            if (!txtTamanio.getText().equals("")
+                    && !txtNumero.getText().equals("")) {
+                array=AsignacionT();
+                System.out.println(Arrays.toString(array));
+                GridPane gridPane = ObjectView.gridPane();
 
-                hBox.getChildren().add(ObjectView.text("Tarea "+(i+1)+"Realizada por: "+array[i], 18));
+                for(int i = 0; i< m;i++){
+                    HBox hBox = ObjectView.hBox_v1();
+                    hBox.getChildren().add(ObjectView.text("Tarea "+(i+1)+" Realizada por agente: "+array[i], 18));
+                    add(hBox);
+                }
 
 
+
+
+
+            } else {
+                Methods.mostrarAlertWarning("Los valores no son validos");
             }
-            add(hBox);
-
-
-        } else {
-
+        }catch (Exception e){
+            Methods.mostrarAlertWarning("Los valores no son validos");
         }
+
     }
 
 
