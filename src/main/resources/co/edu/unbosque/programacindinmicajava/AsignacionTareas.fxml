@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1050.0" styleClass="body" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unbosque.programacindinmicajava.controller.ControllerFloyd">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1050.0" styleClass="body" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unbosque.programacindinmicajava.controller.ControllerAsignacionT">
    <top>
       <HBox prefHeight="30.0" prefWidth="1000.0" rotate="180.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -67,7 +67,7 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="115.0">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tamaño Array">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad de agentes" wrappingWidth="110.51248168945312">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -79,7 +79,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="58.0" prefWidth="121.0">
                            <children>
-                              <TextField fx:id="txtTamanio" prefHeight="26.0" prefWidth="118.0" promptText="tamaño" styleClass="text_v1">
+                              <TextField fx:id="txtTamanio" prefHeight="26.0" prefWidth="118.0" promptText="Agentes" styleClass="text_v1">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -92,7 +92,7 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="115.0">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad de datos" wrappingWidth="108.81990814208984">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad de tareas" wrappingWidth="108.81990814208984">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -104,7 +104,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="58.0" prefWidth="121.0">
                            <children>
-                              <TextField fx:id="txtNumero" prefHeight="26.0" prefWidth="118.0" promptText="numero" styleClass="text_v1">
+                              <TextField fx:id="txtNumero" prefHeight="26.0" prefWidth="118.0" promptText="Tareas" styleClass="text_v1">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -113,41 +113,12 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="buttonInt" mnemonicParsing="false" onAction="#panelDisable" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #4e5052;" text="Ingresar Valores" textFill="WHITE" />
+                  <Button fx:id="buttonInt" mnemonicParsing="false" onAction="#execution" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #4e5052;" text="Ingresar Valores" textFill="WHITE" />
                   <Separator prefHeight="0.0" prefWidth="260.0">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" top="20.0" />
                      </VBox.margin>
                   </Separator>
-                  <Button mnemonicParsing="false" onAction="#addArray" prefHeight="26.0" prefWidth="84.0" style="-fx-background-color: #0390fc;" text="Aleatorio" textFill="WHITE">
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </Button>
-                  <HBox fx:id="panelABC" alignment="CENTER" disable="true" prefHeight="58.0" prefWidth="260.0" spacing="5.0">
-                     <children>
-                        <TextField fx:id="txtA" alignment="CENTER" prefHeight="26.0" prefWidth="66.0" promptText="fila" styleClass="text_v1">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="txtB" alignment="CENTER" prefHeight="26.0" prefWidth="89.0" promptText="columna" styleClass="text_v1">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="txtC" alignment="CENTER" prefHeight="26.0" prefWidth="73.0" promptText="valor" styleClass="text_v1">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" onAction="#addArray" prefHeight="26.0" prefWidth="84.0" style="-fx-background-color: #0390fc;" text="Insertar" textFill="WHITE">
-                           <effect>
-                              <Glow />
-                           </effect>
-                        </Button>
-                     </children>
-                  </HBox>
                   <Text fx:id="textAUX" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                      <font>
                         <Font size="16.0" />
