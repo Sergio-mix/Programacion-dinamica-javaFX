@@ -83,19 +83,13 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
             int m = Integer.parseInt(txtTamanio1.getText());
 
 
-//            GridPane gridPane = ObjectView.gridPane();
-//            HBox hBox = ObjectView.hBox_v1();
-//            hBox.getChildren().add(ObjectView.text("D(" + (aux - 2) + ") =", 18));
-//            hBox.getChildren().add(gridPane);
-//            VBox vBox = ObjectView.vbox_v1();
-//            vBox.getChildren().add(ObjectView.text("#3bd464", Integer.parseInt("El coeficiente Binomial es: " + String.valueOf(Binomial.imprimirSolucion(n, m)))));
-//            hBox.getChildren().add(vBox);
-//            add(hBox);
+           GridPane gridPane = ObjectView.gridPane();
+
 
             if (n >= m) {
-                return Binomial.imprimirSolucion(n, m);
-
-
+                HBox hBox = ObjectView.hBox_v1();
+                hBox.getChildren().add(ObjectView.text("El coeficiente binomial de los numeros ingresados es: "+ Binomial.imprimirSolucion(n,m), 18));
+                add(hBox);
 
             } else {
                 Methods.mostrarAlertError("Ingrese correctamente los datos");

@@ -42,11 +42,11 @@ public class Binomial {
 
 
 
-    public static int imprimirSolucion(int n, int m) {
+    public static long imprimirSolucion(int n, int m) {
 
         System.out.printf("N :%d, M:%d, Binomial Coefficient: %d\n", n, m, getBinomialCoefficient(n, m));
 
-        return 0;
+        return getBinomialCoefficient(n,m);
     }
 
 
