@@ -37,6 +37,7 @@ public class AsignacionTareas{
         result = "Beneficio máximo: " + p [m-1] [n-1] + result;
         return result;
     }
+
     public static void main(String[] args) {
         int[][] c = new int[3][10];
         for(int i = 0; i < 3; i ++){
@@ -45,6 +46,7 @@ public class AsignacionTareas{
                 c[i][j] = c[i][j-1] + (int)(Math.random()*5);
             }
         }
+
         for(int i = 0; i < 3; i ++)
             System.out.println(Arrays.toString(c[i]));
         System.out.println(maxProfit(c));

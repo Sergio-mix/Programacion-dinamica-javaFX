@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -27,24 +28,14 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
     private Pane barmenu;
 
     @FXML
-    private Button buttonInt;
-
-    @FXML
     private VBox container;
-
-    @FXML
-    private HBox panelABC;
-
-
-    @FXML
-    private Text textAUX;
 
     @FXML
     private TextField txtTamanio;
 
     @FXML
     private TextField txtTamanio1;
-    private int [][] array;
+    private int[][] array;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,8 +43,6 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
         txtTamanio.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
         txtTamanio1.addEventFilter(KeyEvent.ANY, Methods.handlerNumbers);
     }
-
-    private int aux = 1;
 
     @FXML
     public void exit(ActionEvent event) {
@@ -66,32 +55,17 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
     }
 
     @FXML
-    private void panelDisable() {
-
-        binomial();
-        //panelABC.setDisable(false);
-        txtTamanio.setDisable(false);
-        txtTamanio1.setDisable(false);
-        //panelABC.setDisable(true);
-        buttonInt.setDisable(false);
-        txtTamanio.setText("");
-        txtTamanio1.setText("");
-
-
-    }
-
-    @FXML
-    private int binomial() {
+    private void binomial() {
         try {
-            container.getChildren().clear();
             int n = Integer.parseInt(txtTamanio.getText());
             int m = Integer.parseInt(txtTamanio1.getText());
-
 
             GridPane gridPane = ObjectView.gridPane();
 
             if (n >= m) {
-                array= Binomial.getBinomialCoefficient(n,m);
+                Map<String, Object> map = Binomial.getBinomialCoefficient(n, m);
+                array = (int[][]) map.get("matriz");
+
                 for (int i = 1; i <= n; i++) {
                     for (int j = 1; j <= n; j++) {
                         Text text = null;
@@ -101,34 +75,28 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
                             text = ObjectView.text(array[i][j], 13);
                         }
 
-                        char chaR1 = (char) ('A' + (i - 1));
-                        Text letra1 = ObjectView.text("#2073f7", chaR1, 14);
-                        gridPane.add(letra1, 0, i);
-
-                        char chaR2 = (char) ('A' + (j - 1));
-                        Text letra2 = ObjectView.text("#2073f7", chaR2, 14);
-                        gridPane.add(letra2, j, 0);
-
                         gridPane.add(text, j, i);
                     }
                 }
 
                 HBox hBox = ObjectView.hBox_v1();
                 hBox.getChildren().add(gridPane);
-                hBox.getChildren().add(ObjectView.text("El coeficiente binomial de "+n +" y " +m+" es: " + Main.coeficienteBinomial, 18));
+                hBox.getChildren().add(
+                        ObjectView.text(
+                                "El coeficiente binomial de " + n + " y " + m + " es: "
+                                        + map.get("coeficienteBinomial"), 18));
+
                 add(hBox);
+            } else {
+                Methods.mostrarAlertWarning("Ingrese correctamente los datos");
             }
-            else {
-                Methods.mostrarAlertError("Ingrese correctamente los datos");
-                txtTamanio1.setText("");
-                txtTamanio.setText("");
-            }
-
-
+            txtTamanio1.setText("");
+            txtTamanio.setText("");
         } catch (Exception ex) {
-            return 0;
+            txtTamanio1.setText("");
+            txtTamanio.setText("");
+            Methods.mostrarAlertError("Error");
         }
-        return 0;
     }
 
 

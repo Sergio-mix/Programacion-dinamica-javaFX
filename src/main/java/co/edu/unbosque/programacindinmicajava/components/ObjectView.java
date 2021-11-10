@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.TableView;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -79,6 +80,15 @@ public class ObjectView {
         return gridPane;
     }
 
+    public static GridPane gridPane_v2() {
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);//Centrar
+        gridPane.setVgap(20);//Espacio Horizontal
+        gridPane.setHgap(50);//Espacio Horizontal
+        gridPane.setPadding(new Insets(10, 50, 10, 50));//Distancia componente interno
+        return gridPane;
+    }
+
     /**
      * Objeto HBox version 1
      *
@@ -89,7 +99,7 @@ public class ObjectView {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);//Centrar
         hBox.setSpacing(70);//Espacio
-        hBox.setPadding(new Insets(5, 0, 5, 0));//Distancia componente interno
+        hBox.setPadding(new Insets(5, 10, 5, 10));//Distancia componente interno
         hBox.setStyle(
                 "-fx-background-color:  #212121; " +
                         "-fx-background-radius: 10 10 10 10;" +
@@ -107,6 +117,4 @@ public class ObjectView {
         vbox.setSpacing(15);//Espacio
         return vbox;
     }
-
-
 }

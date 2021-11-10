@@ -13,7 +13,6 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class Main extends Application {
-    public static int coeficienteBinomial;
     private static Scene scene;
 
     @Override

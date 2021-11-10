@@ -2,9 +2,12 @@ package co.edu.unbosque.programacindinmicajava.model;
 
 import co.edu.unbosque.programacindinmicajava.controller.Main;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class Binomial {
 
-    public static int [][] getBinomialCoefficient(int n, int m) {
+    public static Map<String, Object> getBinomialCoefficient(int n, int m) {
 
         /** Matrix to hold Binomial Coefficients **/
         int[][] bc = new int[n + 1][n + 1];
@@ -26,23 +29,10 @@ public class Binomial {
             }
         }
 
-        /** Printing Binomial Coefficients **/
-        printBinomialCoefficients(bc, n);
-        Main.coeficienteBinomial= bc[n][m];
-        return bc;
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("coeficienteBinomial", bc[n][m]);
+        map.put("matriz", bc);
+
+        return map;
     }
-
-    public static void printBinomialCoefficients(int[][] bc, int n) {
-
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= i; j++) {
-                System.out.printf("%5d", bc[i][j]);
-            }
-            System.out.println();
-        }
-    }
-
-
-
-
 }
