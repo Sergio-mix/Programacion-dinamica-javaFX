@@ -1,8 +1,10 @@
 package co.edu.unbosque.programacindinmicajava.model;
 
+import co.edu.unbosque.programacindinmicajava.controller.Main;
+
 public class Binomial {
 
-    public static long getBinomialCoefficient(int n, int m) {
+    public static int [][] getBinomialCoefficient(int n, int m) {
 
         /** Matrix to hold Binomial Coefficients **/
         int[][] bc = new int[n + 1][n + 1];
@@ -26,11 +28,11 @@ public class Binomial {
 
         /** Printing Binomial Coefficients **/
         printBinomialCoefficients(bc, n);
-
-        return bc[n][m];
+        Main.coeficienteBinomial= bc[n][m];
+        return bc;
     }
 
-    private static void printBinomialCoefficients(int[][] bc, int n) {
+    public static void printBinomialCoefficients(int[][] bc, int n) {
 
         for (int i = 0; i <= n; i++) {
             for (int j = 0; j <= i; j++) {
@@ -41,13 +43,6 @@ public class Binomial {
     }
 
 
-
-    public static long imprimirSolucion(int n, int m) {
-
-        System.out.printf("N :%d, M:%d, Binomial Coefficient: %d\n", n, m, getBinomialCoefficient(n, m));
-
-        return getBinomialCoefficient(n,m);
-    }
 
 
 }

@@ -17,8 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class ControllerBinomiales implements Initializable, DraggedScene {
     @FXML
@@ -32,6 +34,8 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
 
     @FXML
     private HBox panelABC;
+
+
     @FXML
     private Text textAUX;
 
@@ -40,6 +44,7 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
 
     @FXML
     private TextField txtTamanio1;
+    private int [][] array;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,12 +68,12 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
     @FXML
     private void panelDisable() {
 
-            binomial();
-            //panelABC.setDisable(false);
-            txtTamanio.setDisable(false);
-            txtTamanio1.setDisable(false);
-            //panelABC.setDisable(true);
-            buttonInt.setDisable(false);
+        binomial();
+        //panelABC.setDisable(false);
+        txtTamanio.setDisable(false);
+        txtTamanio1.setDisable(false);
+        //panelABC.setDisable(true);
+        buttonInt.setDisable(false);
         txtTamanio.setText("");
         txtTamanio1.setText("");
 
@@ -83,21 +88,41 @@ public class ControllerBinomiales implements Initializable, DraggedScene {
             int m = Integer.parseInt(txtTamanio1.getText());
 
 
-           GridPane gridPane = ObjectView.gridPane();
-
+            GridPane gridPane = ObjectView.gridPane();
 
             if (n >= m) {
+                array= Binomial.getBinomialCoefficient(n,m);
+                for (int i = 1; i <= n; i++) {
+                    for (int j = 1; j <= n; j++) {
+                        Text text = null;
+                        if (array[i][j] == 0) {
+                            text = ObjectView.text("", 13);
+                        } else {
+                            text = ObjectView.text(array[i][j], 13);
+                        }
+
+                        char chaR1 = (char) ('A' + (i - 1));
+                        Text letra1 = ObjectView.text("#2073f7", chaR1, 14);
+                        gridPane.add(letra1, 0, i);
+
+                        char chaR2 = (char) ('A' + (j - 1));
+                        Text letra2 = ObjectView.text("#2073f7", chaR2, 14);
+                        gridPane.add(letra2, j, 0);
+
+                        gridPane.add(text, j, i);
+                    }
+                }
+
                 HBox hBox = ObjectView.hBox_v1();
-                hBox.getChildren().add(ObjectView.text("El coeficiente binomial de los numeros ingresados es: "+ Binomial.imprimirSolucion(n,m), 18));
+                hBox.getChildren().add(gridPane);
+                hBox.getChildren().add(ObjectView.text("El coeficiente binomial de "+n +" y " +m+" es: " + Main.coeficienteBinomial, 18));
                 add(hBox);
-
-            } else {
+            }
+            else {
                 Methods.mostrarAlertError("Ingrese correctamente los datos");
-
                 txtTamanio1.setText("");
                 txtTamanio.setText("");
             }
-
 
 
         } catch (Exception ex) {
