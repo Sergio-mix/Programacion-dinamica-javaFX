@@ -82,7 +82,10 @@
                               <TextField fx:id="txtTamanio" prefHeight="26.0" prefWidth="118.0" promptText="tamaño" styleClass="text_v1">
                                  <font>
                                     <Font size="13.0" />
-                                 </font></TextField>
+                                 </font>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect></TextField>
                            </children>
                         </VBox>
                      </children>
@@ -106,12 +109,18 @@
                               <TextField fx:id="txtNumero" prefHeight="26.0" prefWidth="118.0" promptText="numero" styleClass="text_v1">
                                  <font>
                                     <Font size="13.0" />
-                                 </font></TextField>
+                                 </font>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect></TextField>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <Button fx:id="buttonInt" mnemonicParsing="false" onAction="#panelDisable" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #4e5052;" text="Ingresar Valores" textFill="WHITE" />
+                  <Button fx:id="buttonInt" mnemonicParsing="false" onAction="#panelDisable" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #4e5052;" text="Ingresar Valores" textFill="WHITE">
+                     <effect>
+                        <DropShadow />
+                     </effect></Button>
                   <Separator prefHeight="0.0" prefWidth="260.0">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" top="20.0" />
