@@ -25,6 +25,7 @@ public class Matriz {
         }
         return m;
     }
+
     public int[][] matrixChainS(int[] p, int[][] m, int[][] s) {
         int n = p.length - 1;
 
@@ -58,18 +59,21 @@ public class Matriz {
         traceback(s, s[i][j] + 1, j);
 //			System.out.println("Multiply    A" + i + "," + s[i][j] + "and A" + (s[i][j] + 1) + "," + j);
     }
-    public int[][] matrix_multiply(int[][] a,int [][] b,int f1, int c2,int c1) {
 
-        int c[][] = new int[f1][c2] ;
-        for (int i = 0; i < f1; i++) {
-            for (int j = 0; j < c2; j++) {
-                for (int h = 0; h < c1; h++) {
-                    c[i][j] += a[i][h] * b[h][j];
+    public static int[][] matrix_multiply(int[][] a, int[][] b, int f1, int c2, int c1) {
+        try {
+            int c[][] = new int[f1][c2];
+            for (int i = 0; i < f1; i++) {
+                for (int j = 0; j < c2; j++) {
+                    for (int h = 0; h < c1; h++) {
+                        c[i][j] += a[i][h] * b[h][j];
+                    }
                 }
             }
 
+            return c;
+        } catch (Exception e) {
+            return null;
         }
-
-        return c;
     }
 }

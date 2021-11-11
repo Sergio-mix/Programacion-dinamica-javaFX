@@ -61,7 +61,6 @@ public class ControllerAsignacionT implements Initializable, DraggedScene {
             if (!txtTamanio.getText().equals("")
                     && !txtNumero.getText().equals("")) {
                 array = AsignacionT();
-                System.out.println(Arrays.toString(array));
 
                 GridPane gridPane = ObjectView.gridPane_v2();
                 Text text1 = ObjectView.text("Tarea", 24);
@@ -95,6 +94,9 @@ public class ControllerAsignacionT implements Initializable, DraggedScene {
                 hBox.getChildren().add(vBox);
 
                 add(hBox);
+
+                txtNumero.setText("");
+                txtTamanio.setText("");
             } else {
                 Methods.mostrarAlertWarning("Los valores no son validos");
             }
