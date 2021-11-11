@@ -4,6 +4,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Clase Asignacion de tareas
+ */
 public class AsignacionT{
 
     private int[][] matrizCostes;
@@ -21,7 +24,7 @@ public class AsignacionT{
 
     public int[] asignaTareas(){
         int[] nodoSolucion=generaSolucion(); // Generamos una solución por defecto
-        int[] solucion=new int[matrizCostes.length]; // Solución que vdevolvemos
+        int[] solucion=new int[matrizCostes.length]; // Solución que devolvemos
         int cota=calculaCotaAsociada(nodoSolucion);
         ArrayList<Integer> agentesDisponibles=inicializaArrayList(); // Tenemos el conjunto de agentes en una estructura de datos
         int j=0; // Contador para guiarnos sobre el nodoSolucion y nuestra solucion
@@ -81,6 +84,15 @@ public class AsignacionT{
         }
         return posicion;
     }
+
+    /**
+     * Metodo para cuando los agentes son menores
+     * que las tareas
+     * @param a
+     * @param m
+     * @param agente
+     * @return
+     */
     public int[] arregloArray(int [] a, int m, int agente){
         int []resultado = new int[m];
 
@@ -101,6 +113,15 @@ public class AsignacionT{
             }
         return resultado;
     }
+
+    /**
+     * Asigna las tareas correspondientes en cierto orden segun
+     * la capacidad del agente
+     * @param a
+     * @param t
+     * @param m
+     * @return
+     */
     public static int[] asignacionTareas(int a, int t, int m){
         AsignacionT asignacionT=new AsignacionT(a);
         int [] resultado = new int[m];
