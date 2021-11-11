@@ -1,5 +1,6 @@
 package co.edu.unbosque.programacindinmicajava.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,7 +11,7 @@ public class AsignacionT{
     /* ----------------- IMPLEMENTACIÓN DEL ALGORITMO ----------------- */
     public AsignacionT(int n){ // n será el tamaño del problema
         matrizCostes=new int[n][n];
-        for (int i=0; i<n; i++) // Generamos un problema aleatorio. Si quieres introducir tus datos elimina esto
+        for (int i=0; i<n; i++) // Generamos un problema aleatorio.
             for (int j=0; j<n; j++)
                 matrizCostes[i][j]=(int) (Math.random()*10+1);
 
@@ -41,7 +42,7 @@ public class AsignacionT{
         return solucion;
     }
 
-    // Construimos un nodo solución para poder comprar los valores con él
+
     private int[] generaSolucion(){
         int[] solucion=new int[matrizCostes.length];
         int j=0;
@@ -80,6 +81,26 @@ public class AsignacionT{
         }
         return posicion;
     }
+    public int[] arregloArray(int [] a, int m, int agente){
+        int []resultado = new int[m];
+
+           for(int i=0;i<a.length;i++){
+               resultado[i]=a[i];
+           }
+        int cont= agente;
+        int cont2= 0;
+
+            while(cont<m){
+            if(cont2>agente){
+                cont2=0;
+                cont =cont-1;
+            }
+                resultado[cont]=a[cont2];
+                cont2++;
+                cont++;
+            }
+        return resultado;
+    }
     public static int[] asignacionTareas(int a, int t, int m){
         AsignacionT asignacionT=new AsignacionT(a);
         int [] resultado = new int[m];
@@ -91,14 +112,9 @@ public class AsignacionT{
             for(int i=0; i< a;i++) {
                 resultado[i] = asignacionT.asignaTareas()[i];
             }
-            if(resultado[t-1]==0) {
-                int cont=0;
-                for(int i=a; i< t;i++) {
+            resultado=asignacionT.arregloArray(resultado,m,a);
 
-                    resultado[i] = asignacionT.asignaTareas()[cont];
-                    cont=cont+1;
-                }
-            }
+
 
         }
         return resultado;
